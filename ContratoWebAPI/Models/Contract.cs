@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using ContratoWebAPI.Models;
 
 namespace ContratoWebAPI.Models
 {
@@ -9,7 +11,7 @@ namespace ContratoWebAPI.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Este campo é obrigatório")]
-        public date HiringDate { get; set; }
+        public DateTime HiringDate { get; set; }
 
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public double NumberOfInstallments { get; set; }
