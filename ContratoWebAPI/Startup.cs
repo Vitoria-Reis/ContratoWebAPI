@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using ContratoWebAPI.Models;
 using ContratoWebAPI.Data;
 
 namespace ContratoWebAPI
@@ -29,6 +28,7 @@ namespace ContratoWebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+            services.AddScoped<DataContext, DataContext>();
             services.AddControllers();
         }
 
