@@ -5,7 +5,7 @@ using ContratoWebAPI.Models;
 
 namespace ContratoWebAPI.Models
 {
-    public class Product
+    public class Installment
     {
         [Key]
         public int Id { get; set; }
