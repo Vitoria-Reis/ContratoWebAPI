@@ -30,6 +30,7 @@ namespace ContratoWebAPI
             services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
             services.AddScoped<DataContext, DataContext>();
             services.AddControllers();
+            services.AddMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
