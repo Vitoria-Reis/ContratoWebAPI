@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using ContratoWebAPI.Data;
 using ContratoWebAPI.Models;
@@ -5,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using Microsoft.FeatureManagement;
-using System.Text.Json;
 
 namespace ContratoWebAPI.Controllers
 {
@@ -22,26 +23,26 @@ namespace ContratoWebAPI.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<ActionResult<List<Contract>>> Get([FromServices] DataContext context)
-        {
-            var contracts = await context.Contracts.ToListAsync();
-            return contracts;
-        }
-
-        public async Task<List<Repository>> ProcessRepositories(string company, [FromServices] IMemoryCache _cache, [FromServices] IConfiguration _config)
+        public async Task<ActionResult<List<Contract>>> Contrato(
+            [FromServices] DataContext context, [FromServices] IMemoryCache _cache, [FromServices] IConfiguration _config)
         {
             float cacheExpiration = float.Parse(_config.GetSection("Settings").GetSection("CacheExpirationTimeSeconds").Value);
             if (await _featureManager.IsEnabledAsync("FeatureCache"))
             {
-                var cacheEntry = await _cache.GetOrCreateAsync(company, async entry =>
+                var cacheEntry = await _cache.GetOrCreate(context, async entry =>
                 {
                     entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60);
                     entry.SetPriority(CacheItemPriority.High);
-                    return await ProcessarRepositories(company);
+                    return await Contrato(context);
                 });
                 return cacheEntry;
             }
-            else return await ProcessarRepositories(company);
+            else return await Contrato(context);
+        }
+        private async Task<ActionResult<List<Contract>>> Contrato([FromServices] DataContext context)
+        {
+            var contracts = await context.Contracts.ToListAsync();
+            return contracts;
         }
 
         [HttpPost]
