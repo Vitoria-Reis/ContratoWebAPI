@@ -8,7 +8,7 @@ namespace ContratoWebAPI.Models
     public class Contract
     {
         [Key]
-        public int Id { get; set; }
+        public int Id { get {return Id;} private set{ } }
 
         [Required(ErrorMessage = "Este campo é obrigatório")]
         public DateTime HiringDate { get; set; }
