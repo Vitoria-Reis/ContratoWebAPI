@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using ContratoWebAPI.Data;
+using Microsoft.FeatureManagement;
 
 namespace ContratoWebAPI
 {
@@ -31,6 +32,7 @@ namespace ContratoWebAPI
             services.AddScoped<DataContext, DataContext>();
             services.AddControllers();
             services.AddMemoryCache();
+            services.AddFeatureManagement();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
