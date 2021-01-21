@@ -26,7 +26,6 @@ namespace ContratoWebAPI.Controllers
         public async Task<ActionResult<List<Contract>>> Contrato(
             [FromServices] DataContext context, [FromServices] IMemoryCache _cache, [FromServices] IConfiguration _config)
         {
-            float cacheExpiration = float.Parse(_config.GetSection("Settings").GetSection("CacheExpirationTimeSeconds").Value);
             if (await _featureManager.IsEnabledAsync("FeatureCache"))
             {
                 var cacheEntry = await _cache.GetOrCreate(context, async entry =>
