@@ -8,7 +8,7 @@
 
 - [x] WebApi creation
 - [x] InMemoryCache
-- [ ] Swagger
+- [x] Swagger
 - [ ] Feature Flags
 - [ ] API unit testing
 
